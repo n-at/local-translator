@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <title>local translator</title>
+</head>
+<body>
+
+<nav class="navbar bg-body-tertiary mb-3">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">local translator</span>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-5 offset-1">
+            <label for="lang-src" class="d-none">Language of the text to translate</label>
+            <select id="lang-src" class="form-select"></select>
+        </div>
+        <div class="col-5">
+            <label for="lang-dest" class="d-none">Language to translate to</label>
+            <select id="lang-dest" class="form-select"></select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-1 text-end">
+            <div class="mb-2">
+                <button type="button" id="btn-talk"
+                        class="btn btn-outline-primary btn-sm"
+                        title="Talk">
+                    <i class="bi bi-mic"></i>
+                </button>
+            </div>
+            <div class="mb-2">
+                <button type="button" id="btn-speak-src"
+                        class="btn btn-outline-primary btn-sm"
+                        title="Read source text">
+                    <i class="bi bi-volume-up"></i>
+                </button>
+            </div>
+        </div>
+        <div class="col-5">
+            <label for="text-src" class="d-none">Text to translate</label>
+            <textarea id="text-src" class="form-control" rows="5"></textarea>
+        </div>
+        <div class="col-5">
+            <label for="text-dest" class="d-none">Translated text</label>
+            <textarea id="text-dest" class="form-control" rows="5" readonly></textarea>
+        </div>
+        <div class="col-1 text-start">
+            <div class="mb-2">
+                <button type="button" id="btn-speak-dest"
+                        class="btn btn-outline-primary btn-sm"
+                        title="Read translated text">
+                    <i class="bi bi-volume-up"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

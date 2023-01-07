@@ -1,0 +1,5 @@
+/.idea/
+/*.iml
+/node_modules/
+/assets/vosk/models/
+/assets/bergamot/models/
