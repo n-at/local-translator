@@ -9,12 +9,12 @@
     let utterance = null;
 
     function ready() {
-        if (!window.speechSynthesis) {
+        if (typeof speechSynthesis === 'undefined') {
             console.log('no speech synthesis');
             return;
         }
 
-        for (let voice of window.speechSynthesis.getVoices()) {
+        for (let voice of speechSynthesis.getVoices()) {
             if (!voice.localService) {
                 continue;
             }
