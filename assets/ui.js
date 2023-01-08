@@ -81,8 +81,11 @@
     const langSrc = document.getElementById('lang-src');
     langSrc.addEventListener('change', () => {
         console.log('src language', langSrc.value);
-        if (langSrc.value === '' || langSrc.value === langDest.value) {
+        if (langSrc.value === langDest.value) {
             langSrc.value = '';
+        }
+        localStorage.localTranslatorSrc = langSrc.value;
+        if (langSrc.value === '') {
             return;
         }
         toggleSpeakButtonsVisibility();
@@ -93,9 +96,12 @@
     const langDest = document.getElementById('lang-dest');
     langDest.addEventListener('change', () => {
         console.log('dest language', langDest.value);
-        if (langDest.value === '' || langDest.value === langSrc.value) {
+        if (langDest.value === langSrc.value) {
             langDest.value = '';
-            return
+        }
+        localStorage.localTranslatorDest = langDest.value;
+        if (langDest.value === '') {
+            return;
         }
         toggleSpeakButtonsVisibility();
         toggleDictationButtonVisibility();
@@ -108,8 +114,11 @@
     const textSrc = document.getElementById('text-src');
     textSrc.addEventListener('keyup', scheduleTranslation);
     textSrc.addEventListener('change', scheduleTranslation);
+    textSrc.value = '';
 
     const textDest = document.getElementById('text-dest');
+    textDest.value = '';
+
     const errorText = document.getElementById('error-text');
     const dictationPartialResult = document.getElementById('dictation-partial-result');
 
@@ -141,14 +150,22 @@
         }
     });
 
-    const btnSpeakSrcWrapper = document.getElementById('btn-speak-src').parentElement.parentElement;
+    const btnSpeakSrcWrapper = document.getElementById('btn-speak-src').parentElement;
     const voiceListSrc = document.getElementById('voice-list-src');
-    const btnSpeakDestWrapper = document.getElementById('btn-speak-dest').parentElement.parentElement;
+    const btnSpeakDestWrapper = document.getElementById('btn-speak-dest').parentElement;
     const voiceListDest = document.getElementById('voice-list-dest');
 
     const btnDictation = document.getElementById('btn-dictation');
-    const btnDictationWrapper = btnDictation.parentElement;
+    const btnDictationWrapper = btnDictation;
     btnDictation.addEventListener('click', dictationToggle);
+
+    window.addEventListener('load', () => {
+        langSrc.value = localStorage.localTranslatorSrc || '';
+        langSrc.dispatchEvent(new Event('change'));
+
+        langDest.value = localStorage.localTranslatorDest || '';
+        langDest.dispatchEvent(new Event('change'));
+    });
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -159,6 +176,7 @@
             option.text = lang.name;
             el.appendChild(option);
         }
+        el.value = '';
     }
 
     function languageLoadModal(show) {

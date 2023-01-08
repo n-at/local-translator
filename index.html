@@ -9,13 +9,14 @@
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" href="assets/spinner.css">
+    <link rel="stylesheet" href="assets/style.css">
 
     <title>local translator</title>
 </head>
 <body>
 
 <!-- header -->
-<nav class="navbar bg-body-tertiary mb-3">
+<nav class="navbar navbar-dark bg-dark mb-3">
     <div class="container-fluid">
         <span class="navbar-brand mb-0 h1">local translator</span>
     </div>
@@ -24,35 +25,37 @@
 <div class="container-fluid">
 
     <!-- language selector -->
-    <div class="row mb-3">
-        <div class="col-5 offset-1">
+    <div class="row mb-2">
+        <div class="col-xs-12 col-sm-6 mb-2 mb-sm-0">
             <label for="lang-src" class="d-none">Language of the text to translate</label>
             <select id="lang-src" class="form-select">
-                <option value="" disabled selected>---</option>
+                <option value="" disabled selected>--- Select original language</option>
             </select>
         </div>
-        <div class="col-5">
+        <div class="col-xs-12 col-sm-6">
             <label for="lang-dest" class="d-none">Language to translate to</label>
             <select id="lang-dest" class="form-select">
-                <option value="" disabled selected>---</option>
+                <option value="" disabled selected>--- Select language to translate</option>
             </select>
         </div>
     </div>
 
     <!-- text input and output -->
-    <div class="row mb-3">
-        <div class="col-1 text-end">
-            <div class="mb-2 d-none">
+    <div class="row mb-2">
+        <div class="col-xs-12 col-sm-6 mb-2 mb-sm-0">
+            <div class="mb-2">
+                <label for="text-src" class="d-none">Text to translate</label>
+                <textarea id="text-src" class="form-control" rows="5"></textarea>
+            </div>
+            <div class="text-start">
                 <button type="button" id="btn-dictation"
-                        class="btn btn-outline-primary btn-sm"
-                        title="Talk">
+                        class="btn btn-outline-primary d-none"
+                        title="Dictation">
                     <i class="bi bi-mic"></i>
                 </button>
-            </div>
-            <div class="mb-2 d-none">
-                <div class="dropdown d-inline-block">
+                <div class="dropdown d-inline-block d-none">
                     <button type="button" id="btn-speak-src"
-                            class="btn btn-outline-primary btn-sm dropdown-toggle"
+                            class="btn btn-outline-primary"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                             title="Read source text">
@@ -62,19 +65,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-5">
-            <label for="text-src" class="d-none">Text to translate</label>
-            <textarea id="text-src" class="form-control" rows="5"></textarea>
-        </div>
-        <div class="col-5">
-            <label for="text-dest" class="d-none">Translated text</label>
-            <textarea id="text-dest" class="form-control" rows="5" readonly></textarea>
-        </div>
-        <div class="col-1 text-start">
-            <div class="mb-2 d-none">
-                <div class="dropdown d-inline-block">
+        <div class="col-xs-12 col-sm-6">
+            <div class="mb-2">
+                <label for="text-dest" class="d-none">Translated text</label>
+                <textarea id="text-dest" class="form-control" rows="5" readonly></textarea>
+            </div>
+            <div class="text-end">
+                <div class="dropdown d-inline-block d-none">
                     <button type="button" id="btn-speak-dest"
-                            class="btn btn-outline-primary btn-sm dropdown-toggle"
+                            class="btn btn-outline-primary"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                             title="Read translated text">
@@ -87,15 +86,15 @@
     </div>
 
     <!-- dictation result message -->
-    <div class="row">
-        <div class="col-10 offset-1">
+    <div class="row mb-2">
+        <div class="col-6">
             <div id="dictation-partial-result" class="text-primary"></div>
         </div>
     </div>
 
     <!-- error message -->
     <div class="row mb-3">
-        <div class="col-10 offset-1">
+        <div class="col-6">
             <div id="error-text" class="text-danger"></div>
         </div>
     </div>
