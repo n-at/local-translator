@@ -1,5 +1,7 @@
 (() => {
 
+    let prepared = false;
+
     let voices = {};
     let pitch = 1;
     let rate = 1;
@@ -8,20 +10,22 @@
 
     function ready() {
         if (!window.speechSynthesis) {
+            console.log('no speech synthesis');
             return;
         }
 
-        let voicesAvailable = window.speechSynthesis.getVoices().filter(voice => {
-            return voice.localService;
-        });
-
-        for (let voice of voicesAvailable) {
+        for (let voice of window.speechSynthesis.getVoices()) {
+            if (!voice.localService) {
+                continue;
+            }
             const lang = voice.lang.substring(0, 2);
             if (!voices[lang]) {
                 voices[lang] = [];
             }
             voices[lang].push(voice);
         }
+
+        prepared = true;
     }
 
     function voiceExists(lang) {
@@ -80,6 +84,10 @@
 
         getVoices(lang) {
             return voices[lang];
+        },
+
+        prepared() {
+            return prepared;
         },
     };
 

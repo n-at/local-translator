@@ -66,7 +66,7 @@
                             dictationModel.registerPort(channel.port1);
 
                             dictationRecognizer = new model.KaldiRecognizer(AudioSampleRate);
-                            dictationRecognizer.setWords(true);
+                            dictationRecognizer.setWords(false);
 
                             dictationAudioContext = new AudioContext();
                             dictationAudioContext.audioWorklet.addModule('assets/vosk/recognizer-processor.js')
