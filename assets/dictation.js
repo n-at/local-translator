@@ -43,9 +43,17 @@
 
     ///////////////////////////////////////////////////////////////////////////
 
+    function baseUrl() {
+        const path = location.pathname.split('/');
+        if (path[path.length-1].endsWith('.html')) {
+            path.pop();
+        }
+        return path.join('/');
+    }
+
     function loadModel(lang) {
         return new Promise((resolve, reject) => {
-            const modelUrl = `assets/vosk/models/${lang}.zip`;
+            const modelUrl = `${baseUrl()}/assets/vosk/models/${lang}.zip`;
             Vosk.createModel(modelUrl).then(resolve).catch(reject);
         });
     }
