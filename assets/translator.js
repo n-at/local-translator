@@ -6,7 +6,7 @@
     let translatorReady = false;
     let translatorReadyCallbacks = [];
 
-    const initializedLanguagePairs = {};
+    let initializedLanguagePair = null;
     const requestedLanguagePairs = {};
     let initializationCallbacks = {};
 
@@ -18,7 +18,7 @@
     const worker = new Worker("assets/bergamot/worker.js");
 
     worker.onmessage = function (e) {
-        if (e.data[0] === "translate_reply" && e.data[1]) {
+        if (e.data[0] === "translate_reply") {
             _translationDone(e.data[1]);
         } else if (e.data[0] === "load_model_reply" && e.data[1]) {
             _loadDone(`${e.data[2]}${e.data[3]}`);
@@ -36,13 +36,13 @@
     }
 
     function _loadDone(pair) {
-        delete requestedLanguagePairs[pair];
-        initializedLanguagePairs[pair] = true;
+        initializedLanguagePair = pair;
 
         if (initializationCallbacks[pair]) {
             initializationCallbacks[pair].forEach(callback => callback());
         }
         delete initializationCallbacks[pair];
+        delete requestedLanguagePairs[pair];
     }
 
     function _translationDone(lines) {
@@ -103,7 +103,7 @@
 
                 const pair = `${from}${to}`;
 
-                if (initializedLanguagePairs[pair]) {
+                if (initializedLanguagePair === pair) {
                     resolve();
                     return;
                 }
@@ -168,7 +168,7 @@
         },
         isLanguagePairInitialized(from, to) {
             const pair = `${from}${to}`;
-            return initializedLanguagePairs[pair];
+            return initializedLanguagePair === pair;
         },
 
         ready,

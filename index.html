@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/translator.js"></script>
+    <link rel="stylesheet" href="assets/spinner.css">
 
     <title>local translator</title>
 </head>
 <body>
 
+<!-- header -->
 <nav class="navbar bg-body-tertiary mb-3">
     <div class="container-fluid">
         <span class="navbar-brand mb-0 h1">local translator</span>
@@ -21,27 +22,34 @@
 </nav>
 
 <div class="container-fluid">
+
+    <!-- language selector -->
     <div class="row mb-3">
         <div class="col-5 offset-1">
             <label for="lang-src" class="d-none">Language of the text to translate</label>
-            <select id="lang-src" class="form-select"></select>
+            <select id="lang-src" class="form-select">
+                <option value="" disabled selected>---</option>
+            </select>
         </div>
         <div class="col-5">
             <label for="lang-dest" class="d-none">Language to translate to</label>
-            <select id="lang-dest" class="form-select"></select>
+            <select id="lang-dest" class="form-select">
+                <option value="" disabled selected>---</option>
+            </select>
         </div>
     </div>
 
+    <!-- text input and output -->
     <div class="row mb-3">
         <div class="col-1 text-end">
-            <div class="mb-2">
+            <div class="mb-2 d-none">
                 <button type="button" id="btn-talk"
                         class="btn btn-outline-primary btn-sm"
                         title="Talk">
                     <i class="bi bi-mic"></i>
                 </button>
             </div>
-            <div class="mb-2">
+            <div class="mb-2 d-none">
                 <button type="button" id="btn-speak-src"
                         class="btn btn-outline-primary btn-sm"
                         title="Read source text">
@@ -58,7 +66,7 @@
             <textarea id="text-dest" class="form-control" rows="5" readonly></textarea>
         </div>
         <div class="col-1 text-start">
-            <div class="mb-2">
+            <div class="mb-2 d-none">
                 <button type="button" id="btn-speak-dest"
                         class="btn btn-outline-primary btn-sm"
                         title="Read translated text">
@@ -67,7 +75,45 @@
             </div>
         </div>
     </div>
+
+    <!-- error message -->
+    <div class="row mb-3">
+        <div class="col-10 offset-1">
+            <div id="error-text" class="text-danger"></div>
+        </div>
+    </div>
 </div>
+
+<!-- modals -->
+
+<div class="modal fade" id="modal-load-language"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="modal-load-language-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-load-language-label">Loading language model</h1>
+            </div>
+            <div class="modal-body">
+                <div class="sk-cube-grid">
+                    <div class="sk-cube sk-cube1"></div>
+                    <div class="sk-cube sk-cube2"></div>
+                    <div class="sk-cube sk-cube3"></div>
+                    <div class="sk-cube sk-cube4"></div>
+                    <div class="sk-cube sk-cube5"></div>
+                    <div class="sk-cube sk-cube6"></div>
+                    <div class="sk-cube sk-cube7"></div>
+                    <div class="sk-cube sk-cube8"></div>
+                    <div class="sk-cube sk-cube9"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- scripts -->
+<script src="assets/translator.js"></script>
+<script src="assets/ui.js"></script>
 
 </body>
 </html>
