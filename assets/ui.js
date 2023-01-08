@@ -74,6 +74,8 @@
     ///////////////////////////////////////////////////////////////////////////
 
     Translator.ready().then(() => console.log('translator ready'));
+    TTS.ready();
+
     const translationTimeoutValue = 500;
     let translationTimeout = null;
 
@@ -84,6 +86,7 @@
             langSrc.value = '';
             return;
         }
+        toggleSpeakButtonsVisibility();
         translate();
     });
 
@@ -94,6 +97,7 @@
             langDest.value = '';
             return
         }
+        toggleSpeakButtonsVisibility();
         translate();
     });
 
@@ -125,11 +129,12 @@
         }
     });
 
-    ///////////////////////////////////////////////////////////////////////////
+    const btnSpeakSrcWrapper = document.getElementById('btn-speak-src').parentElement.parentElement;
+    const voiceListSrc = document.getElementById('voice-list-src');
+    const btnSpeakDestWrapper = document.getElementById('btn-speak-dest').parentElement.parentElement;
+    const voiceListDest = document.getElementById('voice-list-dest');
 
-    function getLanguageCode(el) {
-        return el.value;
-    }
+    ///////////////////////////////////////////////////////////////////////////
 
     function loadLanguages(el) {
         for (let lang of languages) {
@@ -151,6 +156,10 @@
 
     function getSrcText() {
         return textSrc.value;
+    }
+
+    function getDestText() {
+        return textDest.value;
     }
 
     function setDestText(text) {
@@ -211,6 +220,41 @@
                 console.log('translation error', error);
                 showErrorMessage(`Translation error: ${error.message}`);
             });
+    }
+
+    function toggleSpeakButtonsVisibility() {
+        if (TTS.voiceExists(langSrc.value)) {
+            const voices = TTS.getVoices(langSrc.value);
+            initializeVoiceList(voiceListSrc, voices, idx => TTS.speak(langSrc.value, idx, getSrcText()));
+            btnSpeakSrcWrapper.classList.remove('d-none');
+        } else {
+            btnSpeakSrcWrapper.classList.add('d-none');
+        }
+
+        if (TTS.voiceExists(langDest.value)) {
+            const voices = TTS.getVoices(langDest.value);
+            initializeVoiceList(voiceListDest, voices, idx => TTS.speak(langDest.value, idx, getDestText()));
+            btnSpeakDestWrapper.classList.remove('d-none');
+        } else {
+            btnSpeakDestWrapper.classList.add('d-none');
+        }
+    }
+
+    function initializeVoiceList(el, voices, clickCallback) {
+        el.innerHTML = '';
+
+        for (let voiceIdx = 0; voiceIdx < voices.length; voiceIdx++) {
+            const btn = document.createElement('button');
+            btn.classList.add('dropdown-item');
+            btn.type = 'button';
+            btn.innerText = voices[voiceIdx].name;
+            btn.addEventListener('click', () => clickCallback(voiceIdx));
+
+            const li = document.createElement('li');
+            li.appendChild(btn);
+
+            el.appendChild(li);
+        }
     }
 
 })();

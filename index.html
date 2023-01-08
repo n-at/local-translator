@@ -49,12 +49,17 @@
                     <i class="bi bi-mic"></i>
                 </button>
             </div>
-            <div class="mb-2 d-none">
-                <button type="button" id="btn-speak-src"
-                        class="btn btn-outline-primary btn-sm"
-                        title="Read source text">
-                    <i class="bi bi-volume-up"></i>
-                </button>
+            <div class="mb-2 ">
+                <div class="dropdown d-inline-block">
+                    <button type="button" id="btn-speak-src"
+                            class="btn btn-outline-primary btn-sm dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            title="Read source text">
+                        <i class="bi bi-volume-up"></i>
+                    </button>
+                    <ul id="voice-list-src" class="dropdown-menu"></ul>
+                </div>
             </div>
         </div>
         <div class="col-5">
@@ -67,11 +72,16 @@
         </div>
         <div class="col-1 text-start">
             <div class="mb-2 d-none">
-                <button type="button" id="btn-speak-dest"
-                        class="btn btn-outline-primary btn-sm"
-                        title="Read translated text">
-                    <i class="bi bi-volume-up"></i>
-                </button>
+                <div class="dropdown d-inline-block">
+                    <button type="button" id="btn-speak-dest"
+                            class="btn btn-outline-primary btn-sm dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            title="Read translated text">
+                        <i class="bi bi-volume-up"></i>
+                    </button>
+                    <ul id="voice-list-dest" class="dropdown-menu"></ul>
+                </div>
             </div>
         </div>
     </div>
@@ -85,7 +95,6 @@
 </div>
 
 <!-- modals -->
-
 <div class="modal fade" id="modal-load-language"
      data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="modal-load-language-label" aria-hidden="true">
@@ -113,6 +122,7 @@
 
 <!-- scripts -->
 <script src="assets/translator.js"></script>
+<script src="assets/tts.js"></script>
 <script src="assets/ui.js"></script>
 
 </body>
