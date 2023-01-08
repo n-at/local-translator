@@ -1,5 +1,8 @@
 # local translator
 
+Translation web application with support of dictation. 
+Works 100% on-device.
+
 ## Build
 
 Required:
