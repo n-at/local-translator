@@ -344,7 +344,18 @@
 
                     recognizer.on('result', result => {
                         const text = getSrcText();
-                        setSrcText(text + " " + result.result.text);
+
+                        const trimmed = text.trim();
+                        let space = ' ';
+                        if (trimmed.length === 0) {
+                            space = '';
+                        } else if (!trimmed.endsWith('.')) {
+                            space = '. ';
+                        }
+
+                        let dictationResult = capitalize(result.result.text);
+
+                        setSrcText(text + space + dictationResult);
                         translate();
                     });
                     recognizer.on('partialresult', result => {
@@ -366,6 +377,10 @@
         btnDictation.classList.remove('btn-primary');
         btnDictation.classList.add('btn-outline-primary');
         showDictationPartialResult('');
+    }
+
+    function capitalize(text) {
+        return text.substring(0, 1).toUpperCase() + text.substring(1);
     }
 
 })();
