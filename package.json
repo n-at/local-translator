@@ -9,6 +9,7 @@
   "description": "",
   "dependencies": {
     "bootstrap": "^5.2.3",
-    "bootstrap-icons": "^1.10.3"
+    "bootstrap-icons": "^1.10.3",
+    "vosk-browser": "^0.0.8"
   }
 }

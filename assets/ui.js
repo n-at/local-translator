@@ -87,6 +87,7 @@
             return;
         }
         toggleSpeakButtonsVisibility();
+        toggleDictationButtonVisibility();
         translate();
     });
 
@@ -98,6 +99,7 @@
             return
         }
         toggleSpeakButtonsVisibility();
+        toggleDictationButtonVisibility();
         translate();
     });
 
@@ -105,15 +107,12 @@
     loadLanguages(langDest);
 
     const textSrc = document.getElementById('text-src');
-    textSrc.addEventListener('keyup', () => {
-        if (translationTimeout) {
-            clearTimeout(translationTimeout);
-        }
-        translationTimeout = setTimeout(translate, translationTimeoutValue);
-    });
+    textSrc.addEventListener('keyup', scheduleTranslation);
+    textSrc.addEventListener('change', scheduleTranslation);
 
     const textDest = document.getElementById('text-dest');
     const errorText = document.getElementById('error-text');
+    const dictationPartialResult = document.getElementById('dictation-partial-result');
 
     let languageModalShow = false;
     const languageModalEl = document.getElementById('modal-load-language')
@@ -129,10 +128,28 @@
         }
     });
 
+    let dictationModalShow = false;
+    const dictationModalEl = document.getElementById('modal-load-dictation');
+    const dictationModal = new bootstrap.Modal(dictationModalEl);
+    dictationModalEl.addEventListener('shown.bs.modal', () => {
+        if (!dictationModalShow) {
+            dictationModal.hide();
+        }
+    });
+    dictationModalEl.addEventListener('hidden.bs.modal', () => {
+        if (dictationModalShow) {
+            dictationModal.show();
+        }
+    });
+
     const btnSpeakSrcWrapper = document.getElementById('btn-speak-src').parentElement.parentElement;
     const voiceListSrc = document.getElementById('voice-list-src');
     const btnSpeakDestWrapper = document.getElementById('btn-speak-dest').parentElement.parentElement;
     const voiceListDest = document.getElementById('voice-list-dest');
+
+    const btnDictation = document.getElementById('btn-dictation');
+    const btnDictationWrapper = btnDictation.parentElement;
+    btnDictation.addEventListener('click', dictationToggle);
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -154,8 +171,21 @@
         }
     }
 
+    function dictationLoadModal(show) {
+        dictationModalShow = show;
+        if (show) {
+            dictationModal.show();
+        } else {
+            dictationModal.hide();
+        }
+    }
+
     function getSrcText() {
         return textSrc.value;
+    }
+
+    function setSrcText(text) {
+        textSrc.value = text;
     }
 
     function getDestText() {
@@ -176,6 +206,17 @@
 
     function showErrorMessage(text) {
         errorText.innerText = text;
+    }
+
+    function showDictationPartialResult(text) {
+        dictationPartialResult.innerText = text;
+    }
+
+    function scheduleTranslation() {
+        if (translationTimeout) {
+            clearTimeout(translationTimeout);
+        }
+        translationTimeout = setTimeout(translate, translationTimeoutValue);
     }
 
     function translate() {
@@ -222,6 +263,8 @@
             });
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+
     function toggleSpeakButtonsVisibility() {
         if (TTS.voiceExists(langSrc.value)) {
             const voices = TTS.getVoices(langSrc.value);
@@ -255,6 +298,53 @@
 
             el.appendChild(li);
         }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    function toggleDictationButtonVisibility() {
+        if (Dictation.modelAvailable(langSrc.value)) {
+            btnDictationWrapper.classList.remove('d-none');
+        } else {
+            btnDictationWrapper.classList.add('d-none');
+        }
+
+        dictationStop();
+    }
+
+    function dictationToggle() {
+        if (Dictation.recording()) {
+            dictationStop();
+        } else {
+            dictationLoadModal(true);
+            Dictation.start(langSrc.value)
+                .then(recognizer => {
+                    dictationLoadModal(false);
+
+                    recognizer.on('result', result => {
+                        const text = getSrcText();
+                        setSrcText(text + " " + result.result.text);
+                        translate();
+                    });
+                    recognizer.on('partialresult', result => {
+                        showDictationPartialResult(result.result.partial);
+                    });
+
+                    btnDictation.classList.add('btn-primary');
+                    btnDictation.classList.remove('btn-outline-primary');
+                })
+                .catch(error => {
+                    dictationLoadModal(false);
+                    console.log(`Dictation error: ${error.message}`);
+                });
+        }
+    }
+
+    function dictationStop() {
+        Dictation.stop();
+        btnDictation.classList.remove('btn-primary');
+        btnDictation.classList.add('btn-outline-primary');
+        showDictationPartialResult('');
     }
 
 })();

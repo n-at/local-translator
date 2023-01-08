@@ -79,7 +79,6 @@
         },
 
         getVoices(lang) {
-            console.log(lang, voices[lang]);
             return voices[lang];
         },
     };
