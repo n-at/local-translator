@@ -1,19 +1,23 @@
 (() => {
 
-    let prepared = false;
-
     let voices = {};
     let pitch = 1;
     let rate = 1;
     let volume = 1;
     let utterance = null;
 
-    function ready() {
+    function init() {
         if (typeof speechSynthesis === 'undefined') {
             console.log('no speech synthesis');
             return;
         }
 
+        speechSynthesis.addEventListener('voiceschanged', loadVoices);
+        loadVoices();
+    }
+
+    function loadVoices() {
+        voices = {};
         for (let voice of speechSynthesis.getVoices()) {
             if (!voice.localService) {
                 continue;
@@ -24,8 +28,6 @@
             }
             voices[lang].push(voice);
         }
-
-        prepared = true;
     }
 
     function voiceExists(lang) {
@@ -56,7 +58,7 @@
     }
 
     window.TTS = {
-        ready,
+        init,
         voiceExists,
         speak,
         stop,
@@ -84,10 +86,6 @@
 
         getVoices(lang) {
             return voices[lang];
-        },
-
-        prepared() {
-            return prepared;
         },
     };
 

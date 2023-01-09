@@ -74,6 +74,7 @@
     ///////////////////////////////////////////////////////////////////////////
 
     Translator.ready().then(() => console.log('translator ready'));
+    TTS.init();
 
     const translationTimeoutValue = 500;
     let translationTimeout = null;
@@ -283,10 +284,6 @@
     ///////////////////////////////////////////////////////////////////////////
 
     function toggleSpeakButtonsVisibility() {
-        if (!TTS.prepared()) {
-            TTS.ready();
-        }
-
         if (TTS.voiceExists(langSrc.value)) {
             const voices = TTS.getVoices(langSrc.value);
             initializeVoiceList(voiceListSrc, voices, idx => TTS.speak(langSrc.value, idx, getSrcText()));
