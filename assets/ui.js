@@ -7,67 +7,67 @@
         },
         {
             code: "ru",
-            name: "Russian (dev)",
+            name: "Russian / русский",
         },
         {
             code: "bg",
-            name: "Bulgarian",
+            name: "Bulgarian / български",
         },
         {
             code: "cs",
-            name: "Czech",
+            name: "Czech / čeština",
         },
         {
             code: "de",
-            name: "German",
+            name: "German / deutsch",
         },
         {
             code: "es",
-            name: "Spanish",
+            name: "Spanish / español",
         },
         {
             code: "et",
-            name: "Estonian",
+            name: "Estonian / eesti",
         },
         {
             code: "fa",
-            name: "Farsi (dev)",
+            name: "Farsi / فارسی",
         },
         {
             code: "fr",
-            name: "French",
+            name: "French / français",
         },
         // {
         //     code: "is",
-        //     name: "Icelandic (dev)",
+        //     name: "Icelandic",
         // },
         {
             code: "it",
-            name: "Italian",
+            name: "Italian / italiano",
         },
         // {
         //     code: "bn",
-        //     name: "Norwegian Bokmål (dev)",
+        //     name: "Norwegian Bokmål",
         // },
         // {
         //     code: "nn",
-        //     name: "Norwegian Nynorsk (dev)",
+        //     name: "Norwegian Nynorsk",
         // },
         {
             code: "nl",
-            name: "Dutch (dev)",
+            name: "Dutch / nederlands",
         },
         {
             code: "pl",
-            name: "Polish",
+            name: "Polish / polski",
         },
         {
             code: "pt",
-            name: "Portugal",
+            name: "Portugal / português",
         },
         // {
         //     code: "uk",
-        //     name: "Ukrainian (dev)",
+        //     name: "Ukrainian",
         // },
     ];
 
@@ -83,12 +83,9 @@
     langSrc.addEventListener('change', () => {
         console.log('src language', langSrc.value);
         if (langSrc.value === langDest.value) {
-            langSrc.value = '';
+            langDest.value = '';
         }
         localStorage.localTranslatorSrc = langSrc.value;
-        if (langSrc.value === '') {
-            return;
-        }
         toggleSpeakButtonsVisibility();
         toggleDictationButtonVisibility();
         translate();
@@ -98,12 +95,9 @@
     langDest.addEventListener('change', () => {
         console.log('dest language', langDest.value);
         if (langDest.value === langSrc.value) {
-            langDest.value = '';
+            langSrc.value = '';
         }
         localStorage.localTranslatorDest = langDest.value;
-        if (langDest.value === '') {
-            return;
-        }
         toggleSpeakButtonsVisibility();
         toggleDictationButtonVisibility();
         translate();
@@ -243,6 +237,8 @@
             translationTimeout = null;
         }
 
+        textDest.value = '';
+
         const src = langSrc.value;
         const dest = langDest.value;
         if (!src || !dest) {
@@ -284,7 +280,7 @@
     ///////////////////////////////////////////////////////////////////////////
 
     function toggleSpeakButtonsVisibility() {
-        if (TTS.voiceExists(langSrc.value)) {
+        if (langSrc.value && TTS.voiceExists(langSrc.value)) {
             const voices = TTS.getVoices(langSrc.value);
             initializeVoiceList(voiceListSrc, voices, idx => TTS.speak(langSrc.value, idx, getSrcText()));
             btnSpeakSrcWrapper.classList.remove('d-none');
@@ -292,7 +288,7 @@
             btnSpeakSrcWrapper.classList.add('d-none');
         }
 
-        if (TTS.voiceExists(langDest.value)) {
+        if (langDest.value && TTS.voiceExists(langDest.value)) {
             const voices = TTS.getVoices(langDest.value);
             initializeVoiceList(voiceListDest, voices, idx => TTS.speak(langDest.value, idx, getDestText()));
             btnSpeakDestWrapper.classList.remove('d-none');
@@ -321,7 +317,7 @@
     ///////////////////////////////////////////////////////////////////////////
 
     function toggleDictationButtonVisibility() {
-        if (Dictation.modelAvailable(langSrc.value)) {
+        if (langSrc.value && Dictation.modelAvailable(langSrc.value)) {
             btnDictationWrapper.classList.remove('d-none');
         } else {
             btnDictationWrapper.classList.add('d-none');
