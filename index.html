@@ -48,7 +48,8 @@
                 <label for="text-src" class="d-none">Text to translate</label>
                 <textarea id="text-src" class="form-control" rows="5"></textarea>
             </div>
-            <div class="text-start">
+            <!-- voice controls -->
+            <div class="text-start mb-2">
                 <button type="button" id="btn-dictation"
                         class="btn btn-outline-primary d-none"
                         title="Dictation">
@@ -65,12 +66,21 @@
                     <ul id="voice-list-src" class="dropdown-menu"></ul>
                 </div>
             </div>
+            <!-- dictation result message -->
+            <div class="text-start mb-2">
+                <div id="dictation-partial-result" class="text-primary"></div>
+            </div>
+            <!-- error message -->
+            <div class="text-start">
+                <div id="error-text" class="text-danger"></div>
+            </div>
         </div>
         <div class="col-xs-12 col-sm-6">
             <div class="mb-2">
                 <label for="text-dest" class="d-none">Translated text</label>
                 <textarea id="text-dest" class="form-control" rows="5" readonly></textarea>
             </div>
+            <!-- voice controls -->
             <div class="text-end">
                 <div class="dropdown d-inline-block d-none">
                     <button type="button" id="btn-speak-dest"
@@ -83,20 +93,6 @@
                     <ul id="voice-list-dest" class="dropdown-menu"></ul>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- dictation result message -->
-    <div class="row mb-2">
-        <div class="col-6">
-            <div id="dictation-partial-result" class="text-primary"></div>
-        </div>
-    </div>
-
-    <!-- error message -->
-    <div class="row mb-3">
-        <div class="col-6">
-            <div id="error-text" class="text-danger"></div>
         </div>
     </div>
 </div>

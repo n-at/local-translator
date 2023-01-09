@@ -2,7 +2,7 @@
 
     let voices = {};
     let pitch = 1;
-    let rate = 1;
+    let rate = 0.75;
     let volume = 1;
     let utterance = null;
 

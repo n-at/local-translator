@@ -149,8 +149,11 @@
 
     const btnSpeakSrcWrapper = document.getElementById('btn-speak-src').parentElement;
     const voiceListSrc = document.getElementById('voice-list-src');
+    document.getElementById('btn-speak-src').addEventListener('click', () => TTS.stop());
+
     const btnSpeakDestWrapper = document.getElementById('btn-speak-dest').parentElement;
     const voiceListDest = document.getElementById('voice-list-dest');
+    document.getElementById('btn-speak-dest').addEventListener('click', () => TTS.stop());
 
     const btnDictation = document.getElementById('btn-dictation');
     const btnDictationWrapper = btnDictation;
@@ -286,6 +289,8 @@
     ///////////////////////////////////////////////////////////////////////////
 
     function toggleSpeakButtonsVisibility() {
+        TTS.stop();
+
         if (langSrc.value && TTS.voiceExists(langSrc.value)) {
             const voices = TTS.getVoices(langSrc.value);
             initializeVoiceList(voiceListSrc, voices, idx => TTS.speak(langSrc.value, idx, getSrcText()));
