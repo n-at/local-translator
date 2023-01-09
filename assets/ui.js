@@ -145,6 +145,8 @@
         }
     });
 
+    const unsupportedModal = new bootstrap.Modal(document.getElementById('modal-unsupported'));
+
     const btnSpeakSrcWrapper = document.getElementById('btn-speak-src').parentElement;
     const voiceListSrc = document.getElementById('voice-list-src');
     const btnSpeakDestWrapper = document.getElementById('btn-speak-dest').parentElement;
@@ -161,6 +163,10 @@
         langDest.value = localStorage.localTranslatorDest || '';
         langDest.dispatchEvent(new Event('change'));
     });
+
+   wasmFeatureDetect.simd()
+       .then(() => console.log('WASM SIMD supported'))
+       .catch(() => unsupportedModal.show());
 
     ///////////////////////////////////////////////////////////////////////////
 

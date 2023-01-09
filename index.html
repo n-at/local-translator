@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="node_modules/wasm-feature-detect/dist/umd/index.js"></script>
 
     <link rel="stylesheet" href="assets/spinner.css">
     <link rel="stylesheet" href="assets/style.css">
@@ -128,7 +129,7 @@
 
 <div class="modal fade" id="modal-load-dictation"
      data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="modal-load-language-label" aria-hidden="true">
+     aria-labelledby="modal-load-dictation-label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -145,6 +146,23 @@
                     <div class="sk-cube sk-cube7"></div>
                     <div class="sk-cube sk-cube8"></div>
                     <div class="sk-cube sk-cube9"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-unsupported"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="modal-unsuported-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-unsuported-label">Browser not supported</h1>
+            </div>
+            <div class="modal-body">
+                <div class="text-primary text-center" style="font-size: 5em">
+                    <i class="bi bi-slash-circle"></i>
                 </div>
             </div>
         </div>
