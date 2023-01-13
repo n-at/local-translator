@@ -524,6 +524,8 @@ function createWasm() {
   }).then(receiver, function(reason) {
    err("failed to asynchronously prepare wasm: " + reason);
    abort(reason);
+  }).catch(err => {
+   if (Module["onRuntimeInitializationFailed"]) Module["onRuntimeInitializationFailed"](err);
   });
  }
  function instantiateAsync() {

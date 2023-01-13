@@ -13,6 +13,9 @@
     let translationQueue = [];
     let translationQueueCurrent = null;
 
+    let initFailedPromiseCallback;
+    const initFailedPromise = new Promise(resolve => initFailedPromiseCallback = resolve);
+
     ///////////////////////////////////////////////////////////////////////////
 
     const worker = new Worker("assets/bergamot/worker.js");
@@ -24,6 +27,8 @@
             _loadDone(`${e.data[2]}${e.data[3]}`);
         } else if (e.data[0] === "import_reply" && e.data[1]) {
             _importDone(e.data[1]);
+        } else if (e.data[0] === 'init_failed_reply') {
+            initFailedPromiseCallback(e.data[1]);
         }
     };
 
@@ -163,8 +168,8 @@
     ///////////////////////////////////////////////////////////////////////////
 
     window.Translator = {
-        isReady() {
-            return translatorReady;
+        initFailed() {
+            return initFailedPromise;
         },
         isLanguagePairInitialized(from, to) {
             const pair = `${from}${to}`;

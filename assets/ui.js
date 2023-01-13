@@ -146,6 +146,7 @@
     });
 
     const unsupportedModal = new bootstrap.Modal(document.getElementById('modal-unsupported'));
+    const initFailedModal = new bootstrap.Modal(document.getElementById('modal-init-failed'));
 
     const btnSpeakSrcWrapper = document.getElementById('btn-speak-src').parentElement;
     const voiceListSrc = document.getElementById('voice-list-src');
@@ -167,9 +168,14 @@
         langDest.dispatchEvent(new Event('change'));
     });
 
-   wasmFeatureDetect.simd()
+    wasmFeatureDetect.simd()
        .then(() => console.log('WASM SIMD supported'))
        .catch(() => unsupportedModal.show());
+
+    Translator.initFailed().then(message => {
+        document.getElementById('modal-init-failed-message').innerText = message;
+        initFailedModal.show();
+    });
 
     ///////////////////////////////////////////////////////////////////////////
 

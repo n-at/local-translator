@@ -35,7 +35,11 @@ var Module = {
     const response = await fetch(MODEL_REGISTRY);
     modelRegistry = await response.json();
     postMessage([`import_reply`, modelRegistry]);
-  }
+  },
+  onRuntimeInitializationFailed: async function(err) {
+    log(`Wasm Runtime initialization failed: ${err.message}`);
+    postMessage(['init_failed_reply', err.message]);
+  },
 };
 
 const log = (message) => {
