@@ -539,6 +539,8 @@ function createWasm() {
      err("falling back to ArrayBuffer instantiation");
      return instantiateArrayBuffer(receiveInstantiationResult);
     });
+   }).catch(err => {
+    if (Module["onRuntimeInitializationFailed"]) Module["onRuntimeInitializationFailed"](err);
    });
   } else {
    return instantiateArrayBuffer(receiveInstantiationResult);

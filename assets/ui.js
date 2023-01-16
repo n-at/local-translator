@@ -160,6 +160,9 @@
     const btnDictationWrapper = btnDictation;
     btnDictation.addEventListener('click', dictationToggle);
 
+    const btnReverseTranslation = document.getElementById("btn-reverse");
+    btnReverseTranslation.addEventListener('click', reverseTranslation);
+
     window.addEventListener('load', () => {
         langSrc.value = localStorage.localTranslatorSrc || '';
         langSrc.dispatchEvent(new Event('change'));
@@ -237,6 +240,21 @@
 
     function showDictationPartialResult(text) {
         dictationPartialResult.innerText = text;
+    }
+
+    function reverseTranslation() {
+        const newLangSrc = langDest.value;
+        const newLangDest = langSrc.value;
+        const newSrcText = getDestText();
+
+        setDestText('')
+        setSrcText(newSrcText);
+
+        langSrc.value = newLangSrc;
+        langSrc.dispatchEvent(new Event('change'));
+
+        langDest.value = newLangDest;
+        langDest.dispatchEvent(new Event('change'));
     }
 
     function scheduleTranslation() {
