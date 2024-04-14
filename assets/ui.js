@@ -37,22 +37,14 @@
             code: "fr",
             name: "French / français",
         },
-        // {
-        //     code: "is",
-        //     name: "Icelandic",
-        // },
         {
             code: "it",
             name: "Italian / italiano",
         },
-        // {
-        //     code: "bn",
-        //     name: "Norwegian Bokmål",
-        // },
-        // {
-        //     code: "nn",
-        //     name: "Norwegian Nynorsk",
-        // },
+        {
+            code: "hu",
+            name: "Hungarian / magyar",
+        },
         {
             code: "nl",
             name: "Dutch / nederlands",
@@ -63,11 +55,51 @@
         },
         {
             code: "pt",
-            name: "Portugal / português",
+            name: "Portuguese / português",
         },
         // {
         //     code: "uk",
         //     name: "Ukrainian",
+        // },
+        // {
+        //     code: "ca",
+        //     name: "Catalan",
+        // },
+        // {
+        //     code: "fi",
+        //     name: "Finnish",
+        // },
+        // {
+        //     code: "el",
+        //     name: "Greek",
+        // },
+        // {
+        //     code: "is",
+        //     name: "Icelandic",
+        // },
+        // {
+        //     code: "lt",
+        //     name: "Lithuanian",
+        // },
+        // {
+        //     code: "bn",
+        //     name: "Norwegian Bokmål",
+        // },
+        // {
+        //     code: "nn",
+        //     name: "Norwegian Nynorsk",
+        // },
+        // {
+        //     code: "mt",
+        //     name: "Maltese",
+        // },
+        // {
+        //     code: "sl",
+        //     name: "Slovenian",
+        // },
+        // {
+        //     code: "tr",
+        //     name: "Turkish",
         // },
     ];
 
