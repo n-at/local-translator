@@ -17,3 +17,13 @@ wget -O fa.zip https://alphacephei.com/vosk/models/vosk-model-small-fa-0.4.zip
 wget -O uk.zip https://alphacephei.com/vosk/models/vosk-model-small-uk-v3-nano.zip
 wget -O cs.zip https://alphacephei.com/vosk/models/vosk-model-small-cs-0.4-rhasspy.zip
 wget -O pl.zip https://alphacephei.com/vosk/models/vosk-model-small-pl-0.22.zip
+wget -O ja.zip https://alphacephei.com/vosk/models/vosk-model-small-ja-0.22.zip
+wget -O cn.zip https://alphacephei.com/vosk/models/vosk-model-small-cn-0.22.zip
+wget -O vn.zip https://alphacephei.com/vosk/models/vosk-model-small-vn-0.4.zip
+wget -O ca.zip https://alphacephei.com/vosk/models/vosk-model-small-ca-0.4.zip
+wget -O kz.zip https://alphacephei.com/vosk/models/vosk-model-small-kz-0.15.zip
+wget -O eo.zip https://alphacephei.com/vosk/models/vosk-model-small-eo-0.42.zip
+wget -O hi.zip https://alphacephei.com/vosk/models/vosk-model-small-hi-0.22.zip
+wget -O uz.zip https://alphacephei.com/vosk/models/vosk-model-small-uz-0.22.zip
+wget -O ko.zip https://alphacephei.com/vosk/models/vosk-model-small-ko-0.22.zip
+wget -O tg.zip https://alphacephei.com/vosk/models/vosk-model-small-tg-0.22.zip

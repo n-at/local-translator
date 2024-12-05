@@ -4,17 +4,28 @@
     const AudioSampleRate = 16000;
 
     const modelsAvailable = {
-        cs: true,
-        de: true,
         en: true,
-        fa: true,
+        ru: true,
         fr: true,
+        de: true,
+        es: true,
+        pt: true,
         it: true,
         nl: true,
-        pl: true,
-        pt: true,
-        ru: true,
+        fa: true,
         uk: true,
+        cs: true,
+        pl: true,
+        ja: true,
+        cn: true,
+        vn: true,
+        ca: true,
+        kz: true,
+        eo: true,
+        hi: true,
+        uz: true,
+        ko: true,
+        tg: true,
     };
 
     let dictationMediaStream = null;
